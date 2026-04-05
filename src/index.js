@@ -9,7 +9,6 @@ const connectDB = require("./config/db");
 const productRoutes = require("./routes/productRoutes");
 
 const app = express();
-connectDB();
 
 // Middleware
 app.use(express.json());
@@ -28,6 +27,13 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Something went wrong!" });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Failed to connect to DB:", err);
+    process.exit(1);
+  });
