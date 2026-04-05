@@ -4,7 +4,7 @@ const productSchema = new mongoose.Schema({
   name: String,
   price: Number,
   description: String,
-  category: String,
+  category: [String],
   stock: Boolean,
 });
 
@@ -13,5 +13,6 @@ productSchema.pre("save", function (next) {
   if (this.price < 0) {
     return next(new Error("Price cannot be negative"));
   }
-  next();
 });
+
+module.exports = mongoose.model("Product", productSchema);
