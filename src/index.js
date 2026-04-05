@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 5000;
 // Import routes and DB connection
 const connectDB = require("./config/db");
 const productRoutes = require("./routes/productRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
@@ -15,6 +16,8 @@ app.use(express.json());
 
 // Routes
 app.use("/api/products", productRoutes);
+
+app.use("/api/users", userRoutes);
 
 // Basic route
 app.get("/", (req, res) => {
